@@ -1,0 +1,80 @@
+<div class="jumbotron">
+  <h1 class="display-4">Olá, bem vindo ao SCCI!</h1>
+  <p class="lead">Sistema de compras inteligente para cegos. Este é um protótipo para validar </p>
+  <hr class="my-4">
+  <p>
+    <strong>Atenção para as orientações de uso:</strong>
+  </p>
+  <ol>
+    <li>Peça para o cliente colocar o fone de ouvido;</li>
+    <li>Explique que a partir de agora ele poderá ouvir/acompanhar os produtos e o seu valor;</li>
+    <li>Para cada produto, insira o código de barrar do produto, informe a quantidade e precione enter;</li>
+    <li>Caso seja necessário remover um produto, precione o botão "remover";</li>
+    <li>Ao final do pedito, clique em finalizar pedido.</li>
+  </ol>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <div class="form-group">
+        <label>Código de barras</label>
+        <input type="number" class="form-control" [(ngModel)]="barCode" (keyup.enter)="add()">
+        <small class="form-text text-muted">Insira o código de barras do produto</small>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="form-group">
+        <label>Quantidade</label>
+        <input type="number" class="form-control" [(ngModel)]="amount" (keyup.enter)="add()">
+        <small class="form-text text-muted">Informe a quantidade do produto</small>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <button class="btn btn-primary mr-3" (click)="add()">Adicionar</button>
+    </div>
+  </div>
+  <div class="row mt-5" *ngIf="shopping.length">
+    <div class="col">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Código de Barras</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Preço</th>
+            <th scope="col">Total</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of shopping">
+            <th scope="row">{{item.product.barCode}}</th>
+            <td>{{item.product.name}}</td>
+            <td>{{item.amount}}</td>
+            <td>R$ {{item.product.price}}</td>
+            <td>R$ {{item.product.price * item.amount}}</td>
+            <td>
+              <button class="btn btn-primary" (click)="remove(item.product)">Remover</button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="6">
+              <strong>
+                Total: R$ {{sumPurchases}}
+              </strong>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+  <div class="row mt-5" *ngIf="shopping.length">
+    <div class="col">
+      <button class="btn btn-primary" (click)="finish()">Finalizar</button>
+    </div>
+  </div>
+</div>
