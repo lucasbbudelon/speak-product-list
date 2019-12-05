@@ -1,5 +1,5 @@
 <table class="table table-hover">
-    <caption>Total do peido: R$ {{orderService.sumOrder}}</caption>
+    <caption>Total do pedido: R$ {{orderService.sumOrder}}</caption>
     <thead>
         <tr>
             <th scope="col">Código</th>
@@ -16,12 +16,12 @@
             <td>{{item.product.name}}</td>
             <td>{{item.amount}}</td>
             <td>R$ {{item.product.price}}</td>
-            <td>R$ {{item.product.price * item.amount}}</td>
+            <td>R$ {{item.total}}</td>
             <td>
                 <button class="btn btn-secondary" (click)="orderService.removeItem(item.product)">Remover</button>
             </td>
         </tr>
-        <tr *ngIf="items.length === 0">
+        <tr *ngIf="orderService.items.length === 0">
             <td colspan="6">Nenhum produto adicionado!</td>
         </tr>
     </tbody>

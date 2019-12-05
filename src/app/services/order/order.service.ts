@@ -18,7 +18,7 @@ export class OrderService {
 
     if (this.items) {
       this.items.forEach(item => {
-        amount += item.product.price * item.amount;
+        amount += item.total;
       });
     }
 
@@ -32,6 +32,8 @@ export class OrderService {
   }
 
   addItem(orderItem: OrderItem) {
+    const total = orderItem.product.price * orderItem.amount;
+    orderItem.total = parseFloat(total.toFixed(2));
     this.items.push(orderItem);
     this.speakItem(orderItem, ORDER_SPEAK.PRODUCT.ADDED);
     this.speakSumOrder();
@@ -61,7 +63,7 @@ export class OrderService {
 
     const textItem = `${orderItem.amount} ${orderItem.product.name} (${orderItem.product.description}) ${action}`;
     const productPrice = this.speechService.convertMonetaryValue(orderItem.product.price);
-    const productSum = this.speechService.convertMonetaryValue(orderItem.product.price * orderItem.amount);
+    const productSum = this.speechService.convertMonetaryValue(orderItem.total);
     const textPrice = `${ORDER_SPEAK.PRODUCT.UNITARY_VALUE} ${productPrice}, ${ORDER_SPEAK.PRODUCT.TOTAL_VALUE} ${productSum}`;
 
     this.speechService.speak(`${textItem}! ${textPrice}.`);
