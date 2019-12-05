@@ -12,7 +12,7 @@
   <ol>
     <li>Peça para o cliente colocar o fone de ouvido;</li>
     <li>Explique que a partir de agora ele poderá ouvir/acompanhar os produtos e o seu valor;</li>
-    <li>Para cada produto, insira o código de barrar do produto, informe a quantidade e precione enter;</li>
+    <li>Para cada produto, insira o código do produto, informe a quantidade e precione enter (ou adicionar);</li>
     <li>Caso seja necessário remover um produto, precione o botão "remover";</li>
     <li>Ao final do pedito, clique em finalizar pedido.</li>
   </ol>
@@ -21,64 +21,40 @@
   <div class="row">
     <div class="col-8">
       <div class="form-group">
-        <label>Código de barras</label>
-        <input type="number" class="form-control" [(ngModel)]="barCode" (keyup.enter)="add()">
+        <label>Código</label>
+        <input #inputCode class="form-control" autofocus type="number"
+          (keyup.enter)="addProduct(inputCode, inputAmount)">
         <small class="form-text text-muted">Insira o código de barras do produto</small>
       </div>
     </div>
     <div class="col-4">
       <div class="form-group">
         <label>Quantidade</label>
-        <input type="number" class="form-control" [(ngModel)]="amount" (keyup.enter)="add()">
+        <input #inputAmount class="form-control" type="number" value="1"
+          (keyup.enter)="addProduct(inputCode, inputAmount)">
         <small class="form-text text-muted">Informe a quantidade do produto</small>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="col">
-      <button class="btn btn-primary mr-3" (click)="add()">Adicionar</button>
+    <div class="col-2">
+      <button class="btn btn-primary w-100" (click)="add()">Adicionar</button>
     </div>
   </div>
-  <div class="row mt-5" *ngIf="shopping.length">
+  <div class="row mt-4">
     <div class="col">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Código de Barras</th>
-            <th scope="col">Nome</th>
-            <th scope="col">Quantidade</th>
-            <th scope="col">Preço</th>
-            <th scope="col">Total</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of shopping">
-            <th scope="row">{{item.product.barCode}}</th>
-            <td>{{item.product.name}}</td>
-            <td>{{item.amount}}</td>
-            <td>R$ {{item.product.price}}</td>
-            <td>R$ {{item.product.price * item.amount}}</td>
-            <td>
-              <button class="btn btn-primary" (click)="remove(item.product)">Remover</button>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="6">
-              <strong>
-                Total: R$ {{sumPurchases}}
-              </strong>
-            </td>
-          </tr>
-        </tfoot>
-      </table>
+      <app-order-table></app-order-table>
     </div>
   </div>
-  <div class="row mt-5" *ngIf="shopping.length">
-    <div class="col">
-      <button class="btn btn-primary" (click)="finish()">Finalizar</button>
+  <div class="row mb-5 mt-2">
+    <div class="col-2">
+      <button class="btn btn-secondary w-100" (click)="orderSummary()">Resumo</button>
+    </div>
+    <div class="col-2">
+      <button class="btn btn-secondary w-100" (click)="speechService.pause()">Pausar</button>
+    </div>
+    <div class="col-2">
+      <button class="btn btn-secondary w-100" (click)="speechService.resume()">Play</button>
     </div>
   </div>
 </div>

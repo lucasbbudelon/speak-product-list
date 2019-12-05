@@ -6,18 +6,20 @@ import Speech from 'speak-tts';
 })
 export class SpeechService {
 
-  private speech: Speech;
   private lang = 'pt-BR';
   private voice = 'Google português do Brasil';
+
+  public speech: Speech;
+  public speaking: boolean;
 
   constructor() {
     this.speech = new Speech();
     this.speech
       .init({
-        volume: 0.9,
+        volume: 1,
         lang: this.lang,
-        rate: 1,
-        pitch: 1,
+        rate: 1.3,
+        pitch: 0.7,
       })
       .then(data => console.log('Speech is ready', data))
       .catch(e => console.error('An error occured while initializing : ', e));
@@ -26,6 +28,7 @@ export class SpeechService {
   speak(text: string) {
     this.speech.setLanguage(this.lang);
     this.speech.setVoice(this.voice);
+    // this.speaking = true;
     this.speech
       .speak({
         text,
@@ -37,8 +40,22 @@ export class SpeechService {
           onboundary: event => console.log(`${event.name} boundary reached after ${event.elapsedTime} milliseconds.`)
         }
       })
-      .then(data => console.log('Success !', data))
-      .catch(e => console.error('An error occurred :', e));
+      .then(data => {
+        console.log('Success !', data);
+        this.speaking = false;
+      })
+      .catch(e => {
+        console.error('An error occurred :', e);
+        this.speaking = false;
+      });
+  }
+
+  pause() {
+    this.speech.pause();
+  }
+
+  resume() {
+    this.speech.resume();
   }
 
   convertMonetaryValue(value: number) {
