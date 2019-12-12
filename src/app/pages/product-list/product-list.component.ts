@@ -4,6 +4,7 @@ import { OrderItem } from 'src/app/services/order/order.model';
 import { OrderService } from 'src/app/services/order/order.service';
 
 import { ProductsService } from '../../services/products/products.service';
+import { SpeechService } from 'src/app/services/speech/speech.service';
 
 @Component({
   selector: 'app-product-list',
@@ -13,8 +14,9 @@ import { ProductsService } from '../../services/products/products.service';
 export class ProductListComponent implements OnInit {
 
   constructor(
-    private productsService: ProductsService,
-    private orderService: OrderService
+    public productsService: ProductsService,
+    public speechService: SpeechService,
+    public orderService: OrderService
   ) { }
 
   ngOnInit() {

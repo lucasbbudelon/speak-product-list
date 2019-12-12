@@ -14,7 +14,7 @@
     <li>Explique que a partir de agora ele poderá ouvir/acompanhar os produtos e o seu valor;</li>
     <li>Para cada produto, insira o código do produto, informe a quantidade e precione enter (ou adicionar);</li>
     <li>Caso seja necessário remover um produto, precione o botão "remover";</li>
-    <li>Ao final do pedito, clique em finalizar pedido.</li>
+    <li>Ao final do pedido, clique em finalizar pedido.</li>
   </ol>
 </div>
 <div class="container">
@@ -48,7 +48,7 @@
   </div>
   <div class="row mb-5 mt-2">
     <div class="col-2">
-      <button class="btn btn-secondary w-100" (click)="orderSummary()">Resumo</button>
+      <button class="btn btn-secondary w-100" (click)="orderService.speakOrderSummary()">Resumo</button>
     </div>
     <div class="col-2">
       <button class="btn btn-secondary w-100" (click)="speechService.pause()">Pausar</button>

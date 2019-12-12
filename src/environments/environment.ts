@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: 'http://5de48814712f9b0014513c91.mockapi.io/api/v1'
+  api: 'http://54.90.145.111'
 };
 
 /*

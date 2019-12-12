@@ -16,14 +16,14 @@ export class ProductsService {
   ) { }
 
   getAll(): Observable<Product[]> {
-    // const url = `${environment.api}/products`;
-    // return this.httpClient.get<Product[]>(url);
-    return of(PRODUCTS_LIST);
+    const url = `${environment.api}/products`;
+    return this.httpClient.get<Product[]>(url);
+    // return of(PRODUCTS_LIST);
   }
 
   getById(id: number): Observable<Product> {
-    // const url = `${environment.api}/products/${id}`;
-    // return this.httpClient.get<Product>(url);
-    return of(PRODUCTS_LIST.find(p => p.id === id));
+    const url = `${environment.api}/products/${id}`;
+    return this.httpClient.get<Product>(url);
+    // return of(PRODUCTS_LIST.find(p => p.id === id));
   }
 }
